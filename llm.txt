@@ -161,4 +161,47 @@ chain = prompt | model | parser --- we will use this in chaining
 6.Connect everything using -- chain = prompt | model | parser
 7.invoke result by passing values of topic and no_of_jokes 
 8.print result 
+ ------Parallel Chains----
+df: A Parallel Chain is a chain where multiple tasks are executed at the same time (in parallel)
+ instead of one after another.
 
+              User Input
+                 │
+      ┌──────────┼──────────┐
+      ▼          ▼          ▼
+  Summary    Sentiment    Genre
+      │          │          │
+      └──────────┼──────────┘
+                 ▼
+          Combined Output
+
+ Use parallel_chain = RunnableParallel(
+    Chain1 = prompt | model | parser,
+    Chain 2 = prompt | model | parser,
+    -
+    -
+    -
+ )
+ parallel_chain.invoke({})
+
+Task: User gives city name 
+LLM will return 
+Chain(i)top toursist attractions 
+Chain(ii)then food places 
+Chain(iii)Best time to visit these places 
+
+Input
+              │
+      ┌───────┼────────┐
+      ▼       ▼        ▼
+   Prompt1 Prompt2 Prompt3
+      │       │        │
+      ▼       ▼        ▼
+    Model   Model    Model
+      │       │        │
+      ▼       ▼        ▼
+    Parser  Parser   Parser
+      │       │        │
+      └───────┼────────┘
+              ▼
+           Output
