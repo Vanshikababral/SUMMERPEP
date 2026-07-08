@@ -1,0 +1,164 @@
+Embedding Model 
+- What 
+- Which Model
+- How to generate it
+- Closest vector
+- Dimensions 
+
+
+----Prompts---- 
+df - A prompt is the instruction or input that you give to an LLM so it knows what task to perform.
+Think of it as asking a question or giving directions to a very knowledgeable assistant.
+
+Example - 1."What is Artificial Intelligence?"
+          2."Summarize the following paragraph in 50 words."
+
+----Categories of Prompts----
+1. Single Msg Prompts 
+    (i)Static Prompts
+      df : A static prompt is a prompt that is fixed.
+      It does not change based on the user's input or any external data. Every time the LLM is called, 
+      it receives the same instructions.
+      
+      With a Static Prompt
+        Instead of sending only the user's question, we prepend a fixed instruction.
+        ex :
+        """You are a College Research Assistant.
+
+            Answer only questions related to colleges,
+            admissions,
+            placements,
+            fees,
+            scholarships,
+            rankings,
+            campus life.
+        User:
+        Which are the best colleges in Jalandhar?"""
+
+        Lets take an eg we want to create College research assistant
+            user = "Writes a prompt"
+            pass this prompt to the LLM
+            then LLM will give the response 
+            and show to the user 
+        Create this by taking users input as prompt --- (college.py) 
+        Use anthropic api key 
+        Use Claude model = "claude-sonnet-5"
+        Install - pip install anthropic for using anthropic api 
+        You can design frontend Using streamlit - pip install streamlit 
+
+    (ii) Dynamic Prompts (uses Prompts template from langchain)
+        df:prompts that changes according to the user input , varible , data 
+        We will declare one or more variable inside system prompt,
+        we can pass values to the variable through dropdowns
+            eg: You are a College Research Assistant.
+                Generate 5 points about the college {college_name}.
+        
+        **Notice that only the variable changes, while the rest of the prompt remains the same.**
+        Let us take same ex College assistant
+        Now user will provide College name in the prompt and the college name will be passed as the value to the variable 
+        declared in the system prompt as college_name
+        and we will use dropdown feature from streamlit to select what do we need to know about the college 
+
+        Prompt template class
+        df: A PromptTemplate is a LangChain class that helps you create 
+        dynamic prompts in a clean, reusable, and structured way.
+        **import langchain_core.prompts import PromptTemplate**
+        
+        
+2. Multi Msg Prompts 
+eg. - conversation with a chatbot 
+    (i) Messages(manual) - (uses system , human , AI messags template from langchain)
+        1. System Message
+            The System Message gives the AI its role, behavior, and instructions.
+            It tells the AI:
+                Who it is
+                How it should behave
+                What it should and shouldn't do
+        2. Human Message
+            This is the user's question.
+            Every time the user types something, it becomes a HumanMessage.
+        3. AI Message
+            This represents the assistant's previous reply.
+            Normally, you don't create it yourself for a single-turn conversation.
+            It's mainly used when continuing a conversation.
+        ****
+        ChatPromptTemplate
+            "from langchain_core.prompts import ChatPromptTemplate"
+                This creates prompts containing
+                System messages
+                Human messages
+            A ChatPromptTemplate is a LangChain class used to create chat-style prompts for chat models like:
+            Claude
+            ChatGPT
+            Gemini
+            Llama Chat models
+            Instead of writing one long prompt, it lets you organize the conversation into multiple messages, such as:
+            System Message
+            Human Message
+            AI Message (optional)
+            Think of it as a template for an entire conversation, not just a single block of text.
+    (ii) Chat - (uses Chat Prompts template from langchain)
+
+
+-------Chain---------
+
+Limitations without using Chains 
+What are we doing?
+Pipeline: Input → Prompt → Model → Parser → Output
+We first provide an input to the application.
+That input is converted into a prompt (either a Single Message Prompt or a Multi-Message Prompt).
+The prompt is then sent to the LLM (Model).
+The model generates a response.
+The response is passed to an Output Parser, which formats or extracts the required information.
+Finally, the parsed result is displayed as the output.
+
+Here are the steps in a short and easy-to-remember format:
+
+(i)Import the required libraries.
+(ii)Create the Prompt Template (ChatPromptTemplate).
+(iii)Create the Model (ChatGoogleGenerativeAI).
+(iv)Create the Output Parser (StrOutputParser).
+(v)Invoke the Prompt using chat_prompt.invoke() to generate the final prompt.
+(vi)Invoke the Model using model.invoke() to get the model's response (AIMessage).
+(vii)Invoke the Parser using parser.invoke() to extract the text from the model's response.
+(viii)Print the final output.
+
+Flow Diagram
+User Input
+     ↓
+ChatPromptTemplate
+     ↓
+chat_prompt.invoke()
+     ↓
+PromptValue
+     ↓
+model.invoke()
+     ↓
+AIMessage
+     ↓
+parser.invoke()
+     ↓
+String Output
+     ↓
+print()
+One-line summary for exams
+
+Import Libraries → Create Prompt → Create Model → Create Parser → Invoke Prompt → Invoke Model → Invoke Parser → Print Output.
+
+We are using invoke again and again. 
+
+Task -
+Create a file jokes_generator.py
+take user input of topic , no. of jokes
+Prompt :- PromptTemplate , Model:- ChatOpenAI , Parse:- StrOutputParser
+
+chain = prompt | model | parser --- we will use this in chaining 
+1.import all the required libraries
+2.take inputs for - topic , no of jokes 
+3.define prompt using ChatPromptTemplate
+4.define model
+5.Use parser 
+6.Connect everything using -- chain = prompt | model | parser
+7.invoke result by passing values of topic and no_of_jokes 
+8.print result 
+
