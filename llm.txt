@@ -305,6 +305,8 @@ Get the data , note it somewhere and make it ready for retrieval
     to carry out this step, we have document loader class in LangChain
         eg: pdf - Pdfloader
             text - Textloader
+            directory - DirectoryLoader 
+            webpage URL - WebpageLoader
 
 -Chunking - divide data into small chunks (eg. storing data in different documents)
 -Embedding of the Chunks
