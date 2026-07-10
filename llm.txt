@@ -206,10 +206,7 @@ Input
               ▼
            Output
 
-
-
-
-
+---------9/07/2026-------------
 
 ****Conditional Chaining****
 RunnableBranch is used to implement conditional chaining in LangChain. It allows you to execute different chains based on a condition.
@@ -292,3 +289,27 @@ They fine tuned these models. We gave wrong prompts and than retrained the model
 
 (ii)Context Engineering
 We gave prompts and on the basis of that we trained the models by giving examples.
+
+------10/07/2026------------
+
+In RAG we pass prompt and extra knowledge(which serves as a context)
+
+1. Indexing -> we load the data whatever rag wants, to a separate storage 
+2. Retrive -> we Retrive the relevant data from indexing
+3. Augmentation -> combining the prompt and the retrieved info 
+4. Response 
+
+Indexing
+Get the data , note it somewhere and make it ready for retrieval 
+-Data Loading 
+    to carry out this step, we have document loader class in LangChain
+        eg: pdf - Pdfloader
+            text - Textloader
+
+-Chunking - divide data into small chunks (eg. storing data in different documents)
+-Embedding of the Chunks
+-Embedding database(vectors)
+
+
+
+
