@@ -312,6 +312,166 @@ Get the data , note it somewhere and make it ready for retrieval
 -Embedding of the Chunks
 -Embedding database(vectors)
 
+Mini Project - LPU RAG 
+Fetch all info of LPU from official website which is publicly available
+go to the webpage , parse html structure , find all the links available, keep pushing it to the stack 
+
+While stack:
+    check_if_official(link)
+
+Check the link whether the selected link is of my use or not 
+load all the info from the valid link using webpage loader 
+We only want to scan 500 pages - apply
 
 
 
+
+
+---Chunking----
+df: Chunking is the process of breaking a large document into smaller pieces (chunks) before storing it in a vector database
+
+Why chunking? 
+retrieval becomes much easier
+
+We try to split the documnents into several chunks .
+Advantages:
+    -Performance
+    -To optimize cost and resources 
+    -Context window limit 
+
+----------Different ways to perform chunking:------------
+
+1. Fixed Size Chunking- Break the document after a fixed number of characters
+    Advantages
+        Very simple
+        Fast
+    Disadvantages
+        May split a sentence in the middle
+2. Recursive Chunking
+
+Paragraph
+↓
+Sentence
+↓
+Word
+↓
+Character
+
+It first tries to split at paragraph boundaries.
+If the paragraph is still too large,
+it splits into sentences.
+If the sentence is too long,
+it splits into words.
+Only as a last resort does it split by characters.
+
+3. Sentence-Based Chunking - Split after every sentence.
+
+4. Paragraph-Based Chunking - Split after every paragraph.
+
+5. Token-Based Chunking - Instead of characters,split according to tokens.
+
+6. Semantic Chunking - This is an advanced technique.Instead of splitting by size,it splits whenever the topic changes.
+   Semantic chunking usually produces better retrieval quality but is more computationally expensive.
+
+What is Chunk Overlap?
+
+Suppose
+Chunk Size = 100
+Overlap = 20
+Document
+ABCDEFGHIJKLMNOPQRSTUVWXYZ...
+becomes
+Chunk 1
+Characters 1–100
+Chunk 2
+Characters 81–180
+Notice
+81–100
+appear in both chunks.
+
+------Vector Store---------
+df:A vector store is a system designed to store and retrieve data represented as numerical vectors
+
+It is used to store data as Vectors (1D array) 
+(i)Stores vector
+(ii)Similarity search - It is the process of finding the chunks that are most similar to the user's question.
+
+Website/PDF
+      │
+      ▼
+Chunking
+      │
+      ▼
+Embeddings
+      │
+      ▼
+Vector Database
+      │
+      ▼
+──────── User asks a question ────────
+      │
+      ▼
+Question Embedding
+      │
+      ▼
+Similarity Search
+      │
+      ▼
+Top Matching Chunks
+      │
+      ▼
+LLM
+      │
+      ▼
+Final Answer
+
+(iii)Indexing 
+Provide a data structure or method that enables fast similarity searches on high dimensional vectors
+(iv)Perform CRUD operations 
+Manage the lifecycle of data- adding new vectors, reading them, updating existing entries, removing outdated vectors.
+
+Flowchart for understanding 
+
+                                DOCUMENTS
+                    (PDFs, Websites, Word Files)
+                                    │
+                            Document Loader
+                    (PyPDFLoader, WebBaseLoader)
+                                    │
+                                Raw Documents
+                                    │
+                                Chunking
+                (Split into smaller meaningful pieces)
+                                    │
+                            Text Chunks
+                                    │
+                            Embedding Model
+                (OpenAI, HuggingFace, Gemini, etc.)
+                                    │
+                            Vector Embeddings
+                [0.12, -0.45, 0.78, ...]
+                                    │
+                                Indexing
+            (Organizes vectors for fast searching)
+                                    │
+                            Vector Store
+                    (FAISS, Chroma, Pinecone)
+                                    │
+            ──────────────────────────────────────────────
+                    User asks a Question
+                                    │
+                            User Question
+                                    │
+                        Convert to Embedding
+                                    │
+                        Similarity Search
+                                    │
+                    Top K Relevant Chunks Retrieved
+                                    │
+                    Context + User Question
+                                    │
+                                LLM
+                    (GPT / Claude / Gemini)
+                                    │
+                            Final Answer
+                            
