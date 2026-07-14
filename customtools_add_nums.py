@@ -6,11 +6,11 @@ def add(num1: int, num2:int)->int:
     return num1 + num2
 
 @tool
-def weather_of_Jalandhar(text:str)->int:
+def weather_of_City(text:str)->int:
     """This return the current temperatre of City"""
     return 36
 
 
-result = weather_of_Jalandhar.invoke({"text": "Jalandhar"})
+result = weather_of_City.invoke({"text": "Jalandhar"})
 print(result)
 
