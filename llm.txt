@@ -571,3 +571,19 @@ We have to execute these 4 steps while working with the tools
 (iii) Calling tools - It will decide which tools to used based on the requirement (by using its reasoning capabilities)
 (iv) Executing tools - We will execute the tool - llm wont execute it because llm cant execute , it will only guide us which tool to use 
 
+Types of Tools:
+
+(i)Built-in Tools
+    Accessing emails
+    Sending emails
+    Shell commands
+    Weather APIs
+
+(ii)Custom Tools 
+    Three methods:
+    (i) @ tool
+    (ii) Structured tools
+    (iii) Base Class Model From langchain
+
+
+
