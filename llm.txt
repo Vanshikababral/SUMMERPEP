@@ -583,7 +583,17 @@ Types of Tools:
     Three methods:
     (i) @ tool
     (ii) Structured tools
-    (iii) Base Class Model From langchain
+    (iii) Base Class Model From langchain 
+
+    Creation of Custom Tools:
+        (i) @ tool decorator
+        (ii) Provide the type of variable
+        (iii) Description
+    eg: def add_num(num1 , num2):
+            """This func sums given nums"""
+            return num1 + num2
+
+            
 
 
 
