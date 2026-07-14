@@ -474,4 +474,100 @@ Flowchart for understanding
                     (GPT / Claude / Gemini)
                                     │
                             Final Answer
-                            
+
+
+
+-------Retrievers--------
+
+WData source -> Relevant documents 
+Therefore we query to find the relevant information
+
+https://medium.com/@abhishekjainindore24/langchain-part-12-retrievers-b435ae8f4ea7
+
+Earlier, we stored documents in a vector database and retrieved them using similarity search. However, not all data needs to be stored in a vector database. A retriever can also fetch relevant documents directly from external sources like Wikipedia or Arxiv at query time. That's why LangChain provides different types of retrievers depending on where the data is stored.
+
+Top three retrievers:-
+  (i)MMR
+  (ii)MQR
+  (iii)CCR
+
+-> MMR (Maximum Marginal Relevance)
+Problem: Normal similarity search may return duplicate or very similar documents.
+Example:
+Query: Causes of Climate Change
+
+Doc1 → Arctic glaciers are melting.
+Doc2 → Ice caps are melting.
+Doc3 → Greenhouse gases increase global warming.
+
+A normal retriever might return:
+Doc1 ✅
+Doc2 ✅ (almost the same as Doc1)
+Doc3
+
+MMR returns:
+Doc1 ✅
+Doc3 ✅
+Another different but relevant document
+
+Goal: Return relevant + diverse documents.
+
+-> MQR (Multi-Query Retriever)
+Problem: A user may ask an ambiguous question.
+
+Example:
+Query:
+How can I stay healthy?
+
+The LLM rewrites it into multiple queries:
+
+How to eat healthy?
+How to exercise regularly?
+How to improve mental health?
+How to sleep better?
+
+Each query searches the vector database, and all results are merged.
+
+Goal: Improve retrieval by searching from multiple perspectives.
+
+-> CCR (Contextual Compression Retriever)
+Problem: Retrieved documents often contain unnecessary information.
+Example:
+
+Retrieved Document:
+The Grand Canyon is famous.
+Photosynthesis converts sunlight into energy.
+Millions of tourists visit every year.
+
+The user asked:
+What is photosynthesis?
+
+CCR compresses the document to:
+Photosynthesis converts sunlight into energy.
+
+Goal: Remove irrelevant text and keep only what's needed.
+
+--------AI Agents ------
+
+LLM = (NLU + C.ATG ) + access to real world tools 
+
+                    Tool1 ----->Action1
+                    |
+                    |   
+                    |    
+Goal --->LLM ------>Tool2 ----->Action2
+                    |
+                    |
+                    |
+                    Tool3 ----->Action3
+
+Tools :-
+APIs are tools that we are going to use in making AI agents 
+df: 
+We have to execute these 4 steps while working with the tools 
+
+(i) Create tools - 
+(ii) Binding tools - tells llm that it is having access to these many tools 
+(iii) Calling tools - It will decide which tools to used based on the requirement (by using its reasoning capabilities)
+(iv) Executing tools - We will execute the tool - llm wont execute it because llm cant execute , it will only guide us which tool to use 
+

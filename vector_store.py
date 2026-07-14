@@ -75,3 +75,4 @@ vector_store.add_documents(docs)
 
 #delete document
 # vector_store.delete(ids=['01a39dc6-3ba6-4ea9-927e-fdda591da5e4'])
+
