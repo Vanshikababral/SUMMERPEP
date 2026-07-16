@@ -595,5 +595,17 @@ Types of Tools:
 
             
 
+Create Mini Jarvis 
+Open VS code 
+Play the mini video
+open Chrome 
 
-
+import 
+def app_opener(text:str)->:
+ "This is   "
+ vs_code_path = ""
+ video_path = ""
+ chrome_path =""
+ if text in vs code:
+    execute vs_code_path using os 
+    
