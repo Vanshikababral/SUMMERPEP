@@ -1,6 +1,84 @@
-----------------LANGGRAPH--------------------
+****Type Annotations****
+We only have to work with python in data science. But we have problems like this
+    (i)It does not have static type of the variable(We don't write the type of the variable)
+        year = 2004
+        Logically it must contains numeric only, but what if someone changes it to:-
+            year = "2010"
+        Python will change it.
+    Solution:-
+        Enforce python to be in the declared type classes.
+        We will take use of the library:-
+            from typing import TypedDict # it will not enforce the rules
+            
+        movie = {
+            'name' : str
+            'year : int
+        }
+        We will create a class like this:-
+            class Movie(TypedDict):
+                name : str
+                year : int
+            movie = Movie(
+                name = "Minions",
+                year = 2026
+            )
+
+****Introduction to LangGraph****
+The whole idea of LangGraph is to create graph like structure.
+It is built on top of LangChain.
+Concept of chains, but using chains you can create simple workflow.
+If you want to create complex chains LangChain is not helpful.
+
+-> Key elements in LangGraph
+(i)Node -> A Node is simply a function or an operation that performs some task.
+(ii)Edge -> Which connects two nodes
+(iii)State -> Interconeected data sctructure. We pass this data structure to the node so that the node can have the relevant information
+For example:-
+    Graph for a specific student(Student name and roll no is something which will be req in all the nodes, we will keep this information in this state variable)
+
+    Lets say, if we are trying to create a whole report card for the student, first node is repsonsible for "aggregating the marks", 2nd node is repsonsible for the "extra curriculars". Now based on sum of this two nodes we want to categorize the student is in Category B or Category A.
+    So this information is something that we want to travel all across the nodes, so we will keep it in the state variable.
+
+(iv)Conditional Node -> Chooses the next node based on a condition.
+(v)Start / End Node -> Ending nodes can be multiple
+(vi)Graph
+(vii)State Graph -> Which will contains the schema of the graph
+
+-> Node
+It will be a function which will do a specific thing.
+It will have two things:-
+    (i)Name of the node
+    (ii)Function
+Let's build a simple graph:-
+    (i)HelloWorld
+        Start
+        Name of the node is "Hello", Function name would be Hello-World. Node would be printing a message
+        End
+    We will create a "State" variable(Just for practice) in which "message" would be there.
+        AgentState()
+    Implementation:-
+        (i)Since we had define
+        def helloworld(state) -> State:
+            state['message'] = 'hello_world'
+            return state
+        Now our function is ready. We will add this fucntion in the graph.
+    (ii)Create a simple LangGraph application that takes a student's name, age, and marks as input through the graph state. The node should calculate the total marks, generate a personalized message, store it in the state, and return the updated state after graph execution.
+    
+    (iii)Class AgentState():
+        name : str
+        age : int
+        msg : str
+    User will pass name and age
+    In the first function, s1 = "Hi{name}, How are you"
+    In the second function, s1 + "Your age is {age}"
+
+****Loop Graph****
+Special Conditional graph only, where we iterate back towards the previous node.
 
 
-Type annotation 
-df: 
-
+                            randomnode
+                              |           (endedge)
+start ---->Greeting ----->Random Number------------>End 
+                               |      |       |
+                     should_continue  |-------|
+                                      (loopedge)
